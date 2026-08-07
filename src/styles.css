@@ -1,0 +1,252 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@theme inline {
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+
+  --color-base: var(--base);
+  --color-charcoal: var(--charcoal);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-warm: var(--warm);
+  --color-soft: var(--soft);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+}
+
+:root {
+  /* Brand */
+  --base: oklch(0.14 0 0); /* #0D0D0D */
+  --charcoal: oklch(0.2 0 0); /* #1C1C1C */
+  --gold: oklch(0.76 0.11 85); /* #C9A961 */
+  --gold-soft: oklch(0.82 0.08 85);
+  --warm: oklch(0.96 0.01 80); /* #F5F3EE */
+  --soft: oklch(0.78 0.015 80); /* readable muted on dark */
+
+  /* Semantic (dark by default) */
+  --background: var(--base);
+  --foreground: var(--warm);
+  --card: var(--charcoal);
+  --card-foreground: var(--warm);
+  --primary: var(--gold);
+  --primary-foreground: var(--base);
+  --secondary: var(--charcoal);
+  --secondary-foreground: var(--warm);
+  --muted: oklch(0.24 0 0);
+  --muted-foreground: var(--soft);
+  --accent: var(--gold);
+  --accent-foreground: var(--base);
+  --popover: var(--charcoal);
+  --popover-foreground: var(--warm);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: var(--gold);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    background-color: var(--background);
+    color: var(--warm);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--warm);
+    overflow-x: hidden;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--warm);
+  }
+  p,
+  li,
+  label,
+  span,
+  td,
+  th {
+    color: inherit;
+  }
+  ::selection {
+    background: var(--gold);
+    color: var(--base);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Native select / option theming */
+  option {
+    background-color: var(--charcoal);
+    color: var(--warm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility container-ser {
+  width: min(92vw, 1440px);
+  margin-inline: auto;
+}
+
+@utility gold-line {
+  background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+  height: 1px;
+  width: 100%;
+}
+
+@utility text-gold {
+  color: var(--gold);
+}
+
+/* Reliable light text on dark surfaces (avoids broken arbitrary opacity colors) */
+@utility text-on-dark {
+  color: var(--warm);
+}
+
+@utility text-on-dark-muted {
+  color: color-mix(in oklab, var(--warm) 82%, transparent);
+}
+
+@utility text-on-dark-soft {
+  color: var(--soft);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+@utility btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.75rem;
+  background: var(--gold);
+  color: var(--base);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--gold);
+  transition:
+    background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+@utility btn-gold-hover {
+  background: transparent;
+  color: var(--gold);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--gold) 40%, transparent);
+}
+
+@utility btn-ghost-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.75rem;
+  background: transparent;
+  color: var(--gold);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--gold);
+  transition:
+    background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Premium interactive polish */
+@layer utilities {
+  .btn-gold:hover,
+  .btn-ghost-gold:hover {
+    transform: translateY(-1px);
+  }
+  .btn-gold:active,
+  .btn-ghost-gold:active {
+    transform: translateY(0);
+  }
+
+  .ser-card {
+    transition:
+      border-color 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ser-card:hover {
+    border-color: color-mix(in oklab, var(--gold) 40%, transparent);
+    box-shadow: 0 20px 50px -30px color-mix(in oklab, var(--gold) 35%, transparent);
+  }
+
+  .ser-link {
+    transition:
+      color 250ms ease,
+      opacity 250ms ease;
+  }
+}
+
+@keyframes ser-kenburns {
+  from {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1);
+  }
+}
